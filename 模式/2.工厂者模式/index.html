@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function CarMaker(){};
+
+    CarMaker.prototype.drive = function(){
+        return "Vroom, I have " + this.doors + " doors;";  
+    }
+
+    CarMaker.factory = function (type) {  
+        var constr = type,
+            newcar;
+        if(typeof CarMaker[constr] !== "function" ){
+            throw {
+                name: "ERROR",
+                massage: constr + "doesn't exist"
+            }
+        }
+
+        if(typeof CarMaker[constr].prototype.drive != "function"){
+            CarMaker[constr].prototype = new CarMaker();
+        }
+
+        newcar = new CarMaker[constr]();
+        return newcar;
+    }
+
+    CarMaker.Compact = function(){
+        this.doors = 4;
+    }
+
+    CarMaker.Convertible = function(){
+        this.doors = 2;
+    }
+
+    CarMaker.SUV = function(){
+        this.doors = 24;
+    }
+
+    var car1 = CarMaker.factory("SUV");
+    console.log(car1.drive());
+    var car2 = CarMaker.factory("Convertible1");
+    console.log(car2.drive());
+
+    var b = Object(true);
+    console.log(b);
+</script>
+</html>
