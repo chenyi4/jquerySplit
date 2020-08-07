@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var agg = (function () {
+        var index = 0,
+            data = [1 , 2, 3, 4, 5],
+            length = data.length;
+        
+        return {
+            next: function(){
+                var element;
+
+                if(!this.hasNext()){
+                    return null;
+                }
+
+                element = data[index];
+                index = index + 1;
+                return element;
+            },
+            hasNext: function(){
+                return index < length;
+            }
+        }
+    }());
+
+    console.log(agg.next());
+    console.log(agg.next());
+</script>
+</html>
