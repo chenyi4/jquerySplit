@@ -1,0 +1,5 @@
+https://www.cnblogs.com/linda586586/category/649788.html
+
+单例模式最初的定义出现于《设计模式》（艾迪生维斯理, 1994）
+
+https://segmentfault.com/a/1190000018800165

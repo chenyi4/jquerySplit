@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+let singleCase = function(name){
+    this.name = name;
+}
+
+singleCase.prototype.getName = function(){
+    return this.name
+}
+
+let getInstance = (function(){
+    var instance = null; //instance 
+    return function(name){
+        console.log(instance);
+        //第一次值保存了以后，并不会被销毁，而且它不是全局变量。
+        if(!instance){
+            instance = new singleCase(name);
+        }
+        return instance;
+    }
+})();
+
+//测试单体模式的实例， 所以 one === two
+let one = getInstance("one");
+let two = getInstance("two");
+
+
+</script>
+</html>
