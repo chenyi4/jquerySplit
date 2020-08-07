@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var asd = (function(){
+        var back = {
+            "as": 100,
+            "value": "aksldks"
+        }
+        return function(){
+            console.log(back);
+            return back;
+        }
+    })();
+
+    var n = asd();
+    n.as = 120;
+    var b = asd();
+    b.as = 200;
+
+</script>
+</html>

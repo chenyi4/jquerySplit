@@ -19,7 +19,7 @@ singleCase.prototype.getName = function(){
 let getInstance = (function(){
     var instance = null; //instance 
     return function(name){
-        console.log(instance);
+        // console.log(instance);
         //第一次值保存了以后，并不会被销毁，而且它不是全局变量。
         if(!instance){
             instance = new singleCase(name);
