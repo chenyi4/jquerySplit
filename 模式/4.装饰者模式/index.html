@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function Sale(price){
+        this.price = price || 100;
+    }
+
+    Sale.prototype.getPrice = function(){
+        return this.price;
+    }
+
+    Sale.decorators = {};
+
+    Sale.decorators.fedtax = {
+        getPrice: function(){
+            var price = this.uber.getPrice();
+            price += price *7.5 / 100;
+            return price;
+        }
+    }
+
+    Sale.decorators.money = {
+        getPrice: function() {
+            return "$" + this.uber.getPrice().toFixed(2);
+        }
+    }
+
+    Sale.decorators.cdn = {
+        getPrice: function() {
+            return "CDN$" + this.uber.getPrice().toFixed(2);
+        }
+    }
+
+    Sale.prototype.decorate = function(decorator){
+        var F = function(){},
+            overrides = this.constructor.decorators[decorator],
+            i, newobj;
+        F.prototype = this;
+        newobj = new F();
+        newobj.uber = F.prototype; //newobj拥有了F对象的所有方法
+        for(i in overrides){
+            if(overrides.hasOwnProperty(i)){ //重写getPrice方法
+                newobj[i] = overrides[i];
+            }
+        }
+        return newobj;
+    }
+
+    var sale = new Sale(100);
+    var back = sale.decorate("fedtax").decorate("money");
+    
+    // .decorate("money").getPrice();
+    // console.log(back);
+</script>
+</html>

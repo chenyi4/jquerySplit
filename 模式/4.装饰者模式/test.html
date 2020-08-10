@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function setObj(width){
+        this.width = width||100;
+    }
+    setObj.prototype.getWidth = function(){
+        return this.width;
+    }
+
+    setObj.prototype.changeLength = function(width){
+        this.width = width;
+        return this;
+    }
+    
+    setObj.Maths = {};
+    setObj.Maths.add = {
+        getWidth: function() {
+            return this.uber.getWidth() + this.uber.getWidth();
+        }
+    }
+    
+    setObj.Maths.sqr = {
+        getWidth: function() {
+            return this.uber.getWidth() * this.uber.getWidth();
+        }
+    }
+
+    setObj.prototype.Math = function(value){
+        var F = function(){};
+        var overObj = this.constructor.Maths[value];
+        F.prototype = this; // F构造函数继承setObj
+        var newObj = new F();
+        newObj.uber = F.prototype;
+        
+        for(var i in overObj){
+            if(overObj.hasOwnProperty(i)){
+                newObj[i] = overObj[i];
+            }
+        }
+        return newObj;
+    }
+
+
+    var newobj = new setObj(120);
+    console.log(newobj.Math("add").Math("sqr").getWidth());
+
+</script>
+</html>
