@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="myinput" style="width: 100px;height: 100px;background-color: red;"></div>
+</body>
+<script>
+    function addEvent(dom, type, fn){
+        if(dom.addEventListener){
+            dom.addEventListener(type, fn, false);
+        } else if( dom.attachEvent){
+            dom.attachEvent("on"+type, fn);
+        } else {
+            dom["on" +　type] = fn;
+        }
+    }
+    const myinput  = document.getElementById("myinput");
+    addEvent(myinput, "click", function(){
+        console.log("绑定click事件");
+    });
+</script>
+</html>
