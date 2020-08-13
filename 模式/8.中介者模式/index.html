@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="results"></div>
+</body>
+<script>
+    function Player(name){
+        this.points = 0;
+        this.name = name;
+    }
+
+    Player.prototype.play = function(){
+        this.points += 1;
+        mediator.played();
+    }
+
+    var scoreboard = { //积分板
+        element: document.getElementById("results"),
+        update: function(score){
+            console.log(score);
+            var i,msg = "";
+            for(var m in score){
+                msg += '<p>';
+                msg += m + "get" +score[m];
+                msg += '<\/p>'
+            }
+            this.element.innerHTML = msg;
+        }
+    }
+
+    var mediator = { 
+        players: {}, 
+        setup: function(){ //初始化
+            var players = this.players;
+            players.home = new Player('Home');
+            players.guest = new Player('Guest');
+        },
+        played: function(){ //如果有人玩，则更新得分值
+            var players = this.players,
+                score = {
+                    Home: players.home.points,
+                    Guest: players.guest.points
+                };
+            scoreboard.update(score);
+        },
+        keypress: function(e){
+            e = e||window.event; //ie浏览器
+            if(e.which === 49){ //按键1
+                console.log("执行了");
+                mediator.players.home.play();
+                return;
+            }
+            if(e.which === 48){ //按键0
+                mediator.players.guest.play();
+                return;
+            }
+        }
+    }
+    //通过中介者来很容易添加一个新的玩家，和一个新的计分器
+    
+    mediator.setup();
+    window.onkeypress = mediator.keypress;
+    //游戏在30秒内结束
+    setTimeout(function(){
+        window.onkeypress = null;
+        alert("Game over!");
+    },30000);
+</script>
+</html>
