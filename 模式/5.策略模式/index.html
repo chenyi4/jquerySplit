@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<!-- 正则匹配大小 -->
+<script>
+    var data = [
+        {
+            name: 'create_time',
+            type: 'notBiggerThanNow',
+            val: 20200802
+        },
+        {
+            name: 'name',
+            type: 'notEmpty',
+            val: ''
+        }
+    ];
+
+    var validator = {
+        types: {
+
+        },
+        messages: [],
+        init: function(data){
+            var item, type, check, msg;
+            this.messages = [];
+             for(var i = 0; i < data.length; i++){
+                 item = data[i];
+                 type = item.type;
+                 if(this.types.hasOwnProperty(type)){
+                    check =  this.types[type];
+                    if(!check.validate(item.val)){
+                        msg = check.text(item.name);
+                        this.messages.push(msg);
+                    }
+                 }else{
+                    throw {
+                        name: "验证",
+                        message: "没有匹配的验证策略,type填错,请修改"
+                    }
+                 }
+              }
+            return this;  
+        },
+        hasErrors: function(){
+            return this.messages.length !== 0;
+        },
+        setAlarm: function(){
+            if(this.hasErrors()){
+                var messages = this.messages; 
+                for(var i in messages){
+                    console.log(messages[i]+'\n');
+                }
+               
+            }
+        }
+    }
+
+    validator.types.notBiggerThanNow = {
+        validate: function(value){
+            return value > 20200804?true:false;
+        },
+        text: function(name){
+            return name+'不可大于当前时间';
+        }
+    }
+
+    validator.types.notEmpty = {
+        validate: function(value){
+            return value?true:false;
+        },
+        text: function(name){
+            return name+'不可为空';
+        }
+    }
+    
+    validator.init(data).setAlarm();
+</script>
+</html>
