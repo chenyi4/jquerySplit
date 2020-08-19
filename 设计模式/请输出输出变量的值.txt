@@ -1,0 +1,14 @@
+17页
+
+myname = "global";
+function func(){
+        alert(myname);
+        var myname = "selfNative";
+        alert(myname);
+    }
+func();
+
+输出 underfined 和 "selfNative";
+
+因为，只要在同一个范围（同一函数）里，就视为已经声明，哪怕是在变量声明前就使用了。
+

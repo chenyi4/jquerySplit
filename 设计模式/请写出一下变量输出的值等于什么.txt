@@ -1,0 +1,10 @@
+global为全局变量
+p16页
+
+var global = (function(){
+        return this;
+}());
+console.log(global);
+
+
+globel值为window ,因为执行函数中的this，不用new 创建的话，this都指向window.但是es5严格模式下不能这样执行

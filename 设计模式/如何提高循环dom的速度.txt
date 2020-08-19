@@ -1,0 +1,2 @@
+document.getElementByName 获取的 div 
+
