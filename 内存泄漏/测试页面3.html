@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #set{
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+</style>
+<body>
+    <div id="set"></div>
+</body>
+<script>
+    var setDom = document.getElementById('set');
+    setDom.addEventListener('click', function(){
+        console.log(new Array(100000).fill('aaaa1'));
+    });   
+</script>
+</html>

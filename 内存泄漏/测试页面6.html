@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <iframe src='./a.html'></iframe>
+</body>
+<script>
+function outer() {
+     var  a = (new Array(1000000).fill("*aaaa1111")); 
+     var  c = (new Array(1000000).fill("*aaaa1111")); 
+     var  inner = function () {
+            console.info(a+c)
+     }
+    return inner    // inner 就是一个闭包函数，因为他能够访问到outer函数的作用域
+}
+var c = outer();
+
+</script>
+</html>

@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#top{
+    width: 100px;
+    height: 100px;
+    background: red;
+}</style>
+<body>
+    <div id="top"></div>
+</body>
+
+<script>
+// 内存泄漏经典例子
+var t = null;
+var replaceThing = function() {
+  var o = t
+  var unused = function() {
+    if (o) {
+      console.log("hi")
+    }        
+  }
+  
+  t = {
+        longStr: new Array(100000).fill('*'),
+        someMethod: function() {
+                       console.log(1)
+                    }
+      }
+}
+setInterval(replaceThing, 10);
+
+var dom = document.getElementById('top');
+var isBlue = true;
+dom.addEventListener('click', function (params) {
+    dom.style.background = isBlue?'blue':'red';
+    isBlue = !isBlue;
+});
+</script>
+</html>
